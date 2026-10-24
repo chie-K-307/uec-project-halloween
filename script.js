@@ -138,7 +138,7 @@ function showFinalMessage() {
 
 const bgm = document.getElementById('bgm');
 
-const bgmVolume = 0.3;    // 音量40%
+const bgmVolume = 0.3;    // 音量30%
 const playDuration = 22;  // 再生時間
 const fadeDuration = 3;  // 最後の3秒でフェードアウト
 
