@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween FizzBuzz</title>
+
+    <!-- Google Fonts: の読み込み -->
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Emilys+Candy&family=Henny+Penny&family=Shippori+Mincho&display=swap"
+        rel="stylesheet">
+
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="pumpkin.png" type="image/png">
+</head>
+
+<body>
+
+    <!-- 背景用のボックス -->
+    <div class="bats-background"></div>
+    
+    <!-- カウントを表示するステージ（初期状態は display: none で非表示） -->
+    <div id="display-window" style="display: none;">
+        <div id="number-text"></div>
+        <div id="illustration-container"></div>
+    </div>
+
+    <!-- 最初は画面中央にこれだけが表示 -->
+    <div class="controls">
+        <!--  リボン下部に表示するがclip-path polygon性質上調整困難 この配置とする -->
+        <p class="click-text">↑click↑</p>
+        <button id="btn-start">Trick or Treat</button>
+    </div>
+
+    <!-- BGM -->
+    <audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

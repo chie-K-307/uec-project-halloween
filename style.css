@@ -1,0 +1,225 @@
+/* 全体のレイアウト設定 */
+body {
+    background-color: #1a1a2e;
+    color: #fff;
+    font-family: "Henny Penny", system-ui;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* 数字とイラストを表示するウィンドウ */
+#display-window {
+    position: relative;
+    width: 900px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+/* ウィンドウ内の数字 */
+#number-text {
+    color: #dcd9e0;
+    font-size: 12rem;
+    font-weight: bold;
+    text-shadow: 0px 0px 30px rgb(178, 155, 219);
+    z-index: 2;
+}
+
+/* イラストを配置する共通スタイル */
+.halloween-img {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* 3の倍数（カボチャ）＆ 5の倍数（お化け）の共通スタイル */
+.pumpkin-fizz,
+.ghost-buzz {
+    width: 350px;
+    height: 350px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 3;
+    opacity: 0;
+    animation: fuwaan-fade 1.3s linear forwards;
+}
+
+/* ふわ〜んと出現して巨大化しながら消えるアニメーション */
+@keyframes fuwaan-fade {
+    0% {
+        /* 最初は小さく、透明な状態からスタート */
+        transform: translate(-50%, -50%) scale(0.3) rotate(-10deg);
+        opacity: 0;
+    }
+
+    15% {
+        /* 開始直後にすぐクッキリ表示させます */
+        opacity: 1;
+    }
+
+    100% {
+        /* 途中で一度もスピードを変えず、最大サイズまで一気に滑らかに拡大しながら消滅します */
+        transform: translate(-50%, -50%) scale(2.2) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+
+
+/* 15の倍数で吹き荒れるお菓子の個別スタイル */
+.storm-candy {
+    position: absolute;
+    pointer-events: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 4;
+    animation: candyBlast 3.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+/* お菓子が画面いっぱいに吹き荒れるアニメーション */
+@keyframes candyBlast {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        top: var(--target-y);
+        left: var(--target-x);
+        transform: translate(-50%, -50%) scale(var(--target-scale)) rotate(var(--target-rotate));
+        opacity: 0;
+    }
+}
+
+/* 終了メッセージのスタイル */
+.finish-message {
+    font-size: 10rem;
+    color: #ff9f43;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(255, 159, 67, 0.5);
+    line-height: 1.3;
+    z-index: 5;
+
+    animation: ghostFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes ghostFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 操作ボタンの基本スタイル */
+#btn-start {
+    font-family: "Henny Penny", serif;
+    background: linear-gradient(135deg, #ff9f43, #ff5e36);
+    color: #1a1a2e;
+    text-shadow: 0px 0px 10px rgb(126, 21, 183);
+    border: none;
+    padding: 50px 150px 120px 150px;
+    font-size: 7rem;
+    font-weight: bold;
+
+    /* 四隅が尖って内側に反ったカタチにボタンをくり抜く */
+    clip-path: polygon(97% 2%,
+            93% 34%,
+            96% 68%,
+            48% 63%,
+            7% 71%,
+            10% 34%,
+            5% 4%,
+            53% 8%);
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 30px rgba(73, 67, 255, 0.4);
+}
+
+
+#btn-start:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+
+
+/* 🌟 新しく追加：画面背面の蝙蝠のシルエット設定 */
+.bats-background {
+    position: absolute;
+    /* 画面の最背面、かつ数字やボタン（z-index: 1〜5）よりも後ろに配置します */
+    z-index: -1;
+
+    /* 蝙蝠の画像ファイルのパスを指定 */
+    background-image: url('bats.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    /* 画像の下側を基準に配置 */
+
+    /* 🌟蝙蝠の大きさと表示位置の調整（ここを自由に変えてください） */
+    width: 1500px;
+    /* 蝙蝠の横幅 */
+    height: 900px;
+    /* 蝙蝠の縦幅 */
+    bottom: 100px;
+    /* 画面の下からどれくらい浮かすか（10%など） */
+    left: 50%;
+    /* 画面の真ん中に配置するための下準備 */
+    transform: translateX(-50%);
+    /* 画面の真ん中にぴったり合わせる */
+
+    opacity: 0.1;
+    /* シルエットなので、少し薄暗くして雰囲気を出す */
+}
+
+
+/* ボタンと文字の並び方を「縦並び」にして中央に寄せる設定 */
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-top: 300px;
+}
+
+/* 🌟「click!」の文字の見た目 */
+.click-text {
+    font-family: "Henny Penny", serif;
+    font-size: 1.2rem;
+    color: #ff9f43;
+    /* ボタンと合わせたハロウィンオレンジ */
+    text-shadow: 0 0 8px rgba(255, 159, 67, 0.5);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: -300px;
+    padding: 0;
+}
+
+
